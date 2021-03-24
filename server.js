@@ -8,6 +8,7 @@ const movieKey = process.env.MOVIE_API_KEY;
 const app = express();
 const PORT = process.env.PORT || 3002;
 const superagent = require('superagent');
+const { response } = require('express');
 
 
 app.use(cors());
@@ -30,6 +31,9 @@ function handleWeather(req, res) {
         return new Forecast(day);
       });
       res.status(200).send(forecastArray);
+    }).catch((err) =>{
+      console.log(err);
+      response.status(500).send('something went wrong');
     });
 }
 
