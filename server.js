@@ -27,10 +27,10 @@ function handleWeather(req, res) {
   .get(url)
   .query(lat, lon)
   .then(results => {
-    const forecastArray = results.body.data.map(day => {
-      return new Forecast(day);
-    })
-  res.status(200).send(forecastArray);
+    // const forecastArray = results.body.data.map(day => {
+    //   return new Forecast(day);
+    // })
+  res.status(200).send('forecastArray');
 })
 
 function Forecast(obj, city, lat, lon) {
