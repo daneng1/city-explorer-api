@@ -21,6 +21,7 @@ app.use('*', (req, res) => {
 
 function handleWeather(req, res) {
   const { lat, lon } = req.query;
+  console.log(req.query);
   const url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}`;
   console.log('made it to weather');
 
