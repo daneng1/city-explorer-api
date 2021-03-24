@@ -22,16 +22,16 @@ function handleWeather(req, res) {
   const { lat, lon } = req.query;
   const url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}`;
   console.log('made it to weather');
-  
-  superagent
-  .get(url)
-  .query(lat, lon)
-  .then(results => {
-    const forecastArray = results.body.data.map(day => {
-      return new Forecast(day);
-    })
-  res.status(200).send(forecastArray);
-})
+
+  superagent.get(url)
+    .query(lat, lon)
+    .then(results => {
+      const forecastArray = results.body.data.map(day => {
+        return new Forecast(day);
+      });
+      res.status(200).send(forecastArray);
+    });
+}
 
 function Forecast(obj, city, lat, lon) {
   this.desc = obj.weather.description;
