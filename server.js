@@ -1,28 +1,37 @@
 'use strict';
 
 const express = require('express');
-
 require('dotenv').config();
-
 const cors = require('cors');
-
-const weather = require('./data/weather.json');
-
+const weatherKey = process.env.WEATHER_API_KEY;
+const movieKey = process.env.MOVIE_API_KEY;
 const app = express();
+const PORT = process.env.PORT || 3002;
+const superagent = require('superagent');
 
-const PORT = process.env.PORT;
 
 app.use(cors());
 
 app.get('/weather', handleWeather);
 
+app.use('*', (req, res) => {
+  res.status(404).send('Page not found');
+});
+
 function handleWeather(req, res) {
+  const { lat, lon } = req.query;
+  const url = `https://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}`;
   console.log('made it to weather');
-  const forecastArray = weather.data.map(day => {
-    return new Forecast(day, weather.city_name, weather.lat, weather.lon);
-  });
+  
+  superagent
+  .get(url)
+  .query(lat, lon)
+  .then(results => {
+    const forecastArray = results.body.data.map(day => {
+      return new Forecast(day);
+    })
   res.status(200).send(forecastArray);
-}
+})
 
 function Forecast(obj, city, lat, lon) {
   this.desc = obj.weather.description;
@@ -31,7 +40,5 @@ function Forecast(obj, city, lat, lon) {
   this.lat = lat;
   this.lon = lon;
 }
-
-
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
