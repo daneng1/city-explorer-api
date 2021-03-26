@@ -6,8 +6,8 @@ const superagent = require('superagent');
 function Forecast(date, description, high_temp, low_temp) {
   this.date = date;
   this.desc = description;
-  this.high = high_temp;
-  this.low = low_temp;
+  this.high = Math.floor(high_temp * 9 / 5 + 32);
+  this.low = Math.floor(low_temp * 9 / 5 + 32);
 }
 
 function handleWeather(req, res) {
