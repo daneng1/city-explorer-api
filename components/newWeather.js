@@ -16,10 +16,10 @@ function getWeather(latitude, longitude) {
   };
 
   if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
-    console.log('Cache hit');
+    console.log('Cache hit for weather');
     response.status(200).send(cache[key]);
   } else {
-    console.log('Cache miss');
+    console.log('Cache miss for weather');
     cache[key] = {};
     cache[key].timestamp = Date.now();
     cache[key].data = superagent
