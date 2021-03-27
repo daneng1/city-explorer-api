@@ -40,7 +40,7 @@ function parseMovies(movieData) {
     const movieSummaries = movieData.results.map(movie => {
       return new Movie(movie);
     });
-    console.log('movieSummaries:', {movieSummaries});
+    // console.log('movieSummaries:', {movieSummaries});
     return Promise.resolve(movieSummaries);
   } catch (e) {
     return Promise.reject(e);
