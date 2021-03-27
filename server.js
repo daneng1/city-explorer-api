@@ -57,7 +57,7 @@ function movieHandler(request, response) {
     .then(summaries => response.send(summaries))
     .catch((error) => {
       console.error(error.message);
-      response.status(200).send('Sorry. Something went wrong with movies!');
+      response.status(500).send('Sorry. Something went wrong with movies!');
     });
 }
 
@@ -67,7 +67,7 @@ function weatherHandler(request, response) {
     .then(summaries => response.send(summaries))
     .catch((error) => {
       console.error(error.message);
-      response.status(200).send('Sorry. Something went wrong with weather!');
+      response.status(500).send('Sorry. Something went wrong with weather!');
     });
 }
 
