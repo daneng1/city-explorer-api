@@ -63,6 +63,7 @@ function movieHandler(request, response) {
 
 function weatherHandler(request, response) {
   const { lat, lon } = request.query;
+  console.log(lat);
   weather(lat, lon)
     .then(summaries => response.send(summaries))
     .catch((error) => {
