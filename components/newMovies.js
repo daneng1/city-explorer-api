@@ -9,7 +9,7 @@ function getMovies(city) {
   const url = 'https://api.themoviedb.org/3/search/movie';
   const queryParams = {
     api_key: process.env.MOVIE_API_KEY,
-    city,
+    query: city,
     language: 'en-US'
   };
   console.log('Search query;', queryParams);
@@ -25,8 +25,8 @@ function getMovies(city) {
       .get(url)
       .query(queryParams)
       .then(results => {
+        console.log(results);
         const movieArray = parseMovies(results.body);
-        console.log(movieArray);
         return movieArray;
       });
     return cache[key].data;
