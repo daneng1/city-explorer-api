@@ -51,7 +51,7 @@ app.get('/weather', weatherHandler);
 app.get('/movies', movieHandler);
 
 function movieHandler(request, response) {
-  const query = request.query;
+  const { query } = request.query;
   console.log('Movie Query:',query);
   movies(query)
     .then(summaries => response.send(summaries))
