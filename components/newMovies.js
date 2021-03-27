@@ -25,7 +25,7 @@ function getMovies(city) {
       .query(queryParams)
       .then(results => {
         const movieArray = parseMovies(results.body);
-        // console.log(movieArray);
+        console.log(movieArray);
         return movieArray;
       });
     return cache[key].data;
