@@ -25,7 +25,7 @@ function getMovies(city) {
       .get(url)
       .query(queryParams)
       .then(results => {
-        console.log(results);
+        // console.log(results);
         const movieArray = parseMovies(results.body);
         return movieArray;
       });
@@ -37,7 +37,7 @@ function getMovies(city) {
 function parseMovies(movieData) {
   console.log('Movie Data:', movieData);
   try {
-    const movieSummaries = movieData.data.results.map(movie => {
+    const movieSummaries = movieData.results.map(movie => {
       return new Movie(movie);
     });
     // console.log('movieSummaries:', movieSummaries);
