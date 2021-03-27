@@ -52,7 +52,7 @@ app.get('/movies', movieHandler);
 
 function movieHandler(request, response) {
   const { query } = request.query;
-  console.log('Movie Query:',query);
+  // console.log('Movie Query:',query);
   movies(query)
     .then(summaries => response.send(summaries))
     .catch((error) => {
@@ -63,7 +63,7 @@ function movieHandler(request, response) {
 
 function weatherHandler(request, response) {
   const { lat, lon } = request.query;
-  console.log(lat);
+  // console.log(lat);
   weather(lat, lon)
     .then(summaries => response.send(summaries))
     .catch((error) => {

@@ -51,9 +51,11 @@ class Weather {
   constructor(day) {
     this.forecast = day.weather.description;
     this.time = day.datetime;
+    this.icon = `./assets/icons/${day.weather.icon}.png`;
     this.high = Math.floor(day.high_temp * 9 / 5 + 32);
     this.low = Math.floor(day.low_temp * 9 / 5 + 32);
   }
 }
 
 module.exports = getWeather;
+
