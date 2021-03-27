@@ -35,9 +35,9 @@ function getMovies(city) {
 }
 
 function parseMovies(movieData) {
-  console.log('Movie Data:', movieData);
+  // console.log('Movie Data:', movieData);
   try {
-    const movieSummaries = movieData.data.map(movie => {
+    const movieSummaries = movieData.data.results.map(movie => {
       return new Movie(movie);
     });
     console.log('movieSummaries:', movieSummaries);
