@@ -9,15 +9,16 @@ function getMovies(city) {
   const url = 'https://api.themoviedb.org/3/search/movie';
   const queryParams = {
     api_key: process.env.MOVIE_API_KEY,
-    query: city.searchQuery,
+    query: city,
     language: 'en-US'
   };
+  console.log('Search query;', queryParams);
 
   if (cache[key] && (Date.now() - cache[key].timestamp < 2.592e+9)) {
-    console.log('Cache hit');
+    console.log('Cache hit for movies', cache[key]);
     response.status(200).send(cache[key]);
   } else {
-    console.log('Cache miss');
+    console.log('Cache miss for movies');
     cache[key] = {};
     cache[key].timestamp = Date.now();
     cache[key].data = superagent
@@ -39,7 +40,7 @@ function parseMovies(movieData) {
     const movieSummaries = movieData.data.map(movie => {
       return new Movie(movie);
     });
-    // console.log('movieSummaries:', movieSummaries);
+    console.log('movieSummaries:', movieSummaries);
     return Promise.resolve(movieSummaries);
   } catch (e) {
     return Promise.reject(e);
