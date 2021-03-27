@@ -1,37 +1,74 @@
+// 'use strict';
+
+// // dotenv allows us to access variables from the .env file
+// require('dotenv').config();
+
+// // express is used to build our server
+// const express = require('express');
+
+// // initializes the server
+// const app = express();
+
+// // cors allows front end to access the backend
+// const cors = require('cors');
+
+// // allows everyone to acces the server
+// app.use(cors());
+
+// const PORT = process.env.PORT || 3002;
+
+// // superagent allows us to talk to the API's, out carrier pigeons
+
+// app.get('/', (request, response) => {
+//   response.send('hello world');
+// });
+
+// const getMovies = require('./components/movies');
+// const getWeather = require('./components/weather');
+// // route
+// app.get('/weather', getWeather);
+// app.get('/movies', getMovies);
+
+// app.use('*', (req, res) => {
+//   res.status(404).send('Page not found');
+// });
+
+// // this turns on the server, check by running nodemon in term, should see "listenting on 3001"
+// app.listen(PORT, () => console.log(`listening on ${PORT}`));
+
 'use strict';
 
-// dotenv allows us to access variables from the .env file
 require('dotenv').config();
-
-// express is used to build our server
 const express = require('express');
-
-// initializes the server
-const app = express();
-
-// cors allows front end to access the backend
 const cors = require('cors');
-
-// allows everyone to acces the server
+const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 3002;
+const weather = require('./components/newWeather');
+const movies = require('./components/newMovies');
 
-// superagent allows us to talk to the API's, out carrier pigeons
+app.get('/weather', weatherHandler);
+app.get('/movies', movieHandler);
 
-app.get('/', (request, response) => {
-  response.send('hello world');
-});
+function movieHandler(request, response) {
+  const query = request.query;
+  console.log('Movie Query:',query);
+  movies(query)
+    .then(summaries => response.send(summaries))
+    .catch((error) => {
+      console.error(error.message);
+      response.status(200).send('Sorry. Something went wrong with movies!');
+    });
+}
 
-const getMovies = require('./components/movies');
-const getWeather = require('./components/weather');
-// route
-app.get('/weather', getWeather);
-app.get('/movies', getMovies);
+function weatherHandler(request, response) {
+  const { lat, lon } = request.query;
+  weather(lat, lon)
+    .then(summaries => response.send(summaries))
+    .catch((error) => {
+      console.error(error.message);
+      response.status(200).send('Sorry. Something went wrong with weather!');
+    });
+}
 
-app.use('*', (req, res) => {
-  res.status(404).send('Page not found');
-});
-
-// this turns on the server, check by running nodemon in term, should see "listenting on 3001"
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+app.listen(process.env.PORT, () => console.log(`Server up on ${process.env.PORT}`));
