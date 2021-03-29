@@ -14,7 +14,7 @@ function getMovies(city) {
   };
   console.log('Search query;', queryParams);
 
-  if (cache[key] && (Date.now() - cache[key].timestamp < 2.592e+9)) {
+  if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
     console.log('Cache hit for movies', cache[key]);
     response.status(200).send(cache[key]);
   } else {
